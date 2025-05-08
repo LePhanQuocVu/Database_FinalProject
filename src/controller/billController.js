@@ -2,7 +2,7 @@ const db = require('../config/dbConnect');
 const sql = require('mssql');
 
 async function insertBill(req, res) {
-    // console.log(req.body);
+    console.log(req.body);
     const {
         paidDate,
         customerPhone,
