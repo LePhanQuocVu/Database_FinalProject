@@ -88,14 +88,14 @@ export interface MembershipTransaction {
   billId?: string
 }
 
+// sua memebershipinfo 
 export interface MembershipInfo {
-  id: string
   customerName: string
   customerPhone: string
   points: number
   balance: number
   rank: MembershipRank
-  pointsUsed: number
+  regDate: Date
 }
 
 export interface Store {
