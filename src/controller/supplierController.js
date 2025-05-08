@@ -2,7 +2,7 @@ const getConnection = require('../config/dbConnect');
 const getAllSuppliers = async (req, res) => {
   try {
     const pool = await getConnection()
-    const result = await pool.request().query("SELECT * FROM Suppliers")
+    const result = await pool.request().query("SELECT * FROM supplier")
     res.json(result.recordset)
   } catch (err) {
     console.error("Query error:", err)

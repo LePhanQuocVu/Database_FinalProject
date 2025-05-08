@@ -1,9 +1,11 @@
 // lib/db.ts
 const sql = require('mssql');
+require('dotenv').config(); // Load biến môi trường từ .env
+
 
 const config = {
-    server: 'localhost',
-    database: 'HighlandsCoffee',
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
     user: 'sa',
     password: '123456',
     options: {
