@@ -22,7 +22,7 @@ interface PaymentReceiptProps {
   paymentMethod: string
   receiptId: string
   membershipInfo?: MembershipInfo | null
-  storeName: string
+  // storeName: string
 }
 
 export function PaymentReceipt({
@@ -37,7 +37,7 @@ export function PaymentReceipt({
   paymentMethod,
   receiptId,
   membershipInfo,
-  storeName,
+  // storeName,
 }: PaymentReceiptProps) {
   const receiptRef = useRef<HTMLDivElement>(null)
 
@@ -127,7 +127,7 @@ export function PaymentReceipt({
               />
             </div>
             <h2 className="text-lg font-bold">HIGHLANDS COFFEE</h2>
-            <p className="text-sm font-medium">{storeName}</p>
+            {/* <p className="text-sm font-medium">{storeName}</p> */}
             <p className="text-xs">Số 123 Đường ABC, Quận XYZ, TP.HCM</p>
             <p className="text-xs">Hotline: 1900 1234</p>
           </div>

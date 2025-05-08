@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider"
 import type { OrderItem } from "./order-system"
 import type { MembershipInfo, Store } from "@/types"
+import { Checkbox } from "@/components/ui/checkbox"
 
 interface OrderBillProps {
   orderItems: OrderItem[]
@@ -24,8 +25,12 @@ interface OrderBillProps {
   total: number
   customerName: string
   customerPhone: string
+  employeeSSN: string
+  SSNEnabled: boolean
   onCustomerNameChange: (name: string) => void
   onCustomerPhoneChange: (phone: string) => void
+  onEmployeeSSNChange: (SSN: string) => void
+  onSSNEnableChange: (Enable: boolean) => void
   paymentMethod: string
   onPaymentMethodChange: (method: string) => void
   onCheckout: () => void
@@ -47,8 +52,12 @@ export function OrderBill({
   total,
   customerName,
   customerPhone,
+  employeeSSN,
+  SSNEnabled,
   onCustomerNameChange,
   onCustomerPhoneChange,
+  onEmployeeSSNChange,
+  onSSNEnableChange,
   paymentMethod,
   onPaymentMethodChange,
   onCheckout,
@@ -76,9 +85,9 @@ export function OrderBill({
         <div className="mb-4">
           <Label htmlFor="store">Chi nhánh</Label>
           <Select
-            value={selectedStore.id}
+            value={selectedStore.id?.toString()}
             onValueChange={(value) => {
-              const store = stores.find((s) => s.id === value)
+              const store = stores.find((s) => s.id === Number(value))
               if (store) onSelectStore(store)
             }}
           >
@@ -87,8 +96,8 @@ export function OrderBill({
             </SelectTrigger>
             <SelectContent>
               {stores.map((store) => (
-                <SelectItem key={store.id} value={store.id}>
-                  {store.name}
+                <SelectItem key={store.id} value={store.id?.toString()}>
+                  {store.address}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -186,6 +195,29 @@ export function OrderBill({
               value={customerPhone}
               onChange={(e) => onCustomerPhoneChange(e.target.value)}
               placeholder="Nhập số điện thoại"
+            />
+          </div>
+          <div className="grid gap-2">
+            {/* <Label htmlFor="employee-SSN">Mã nhân viên</Label> */}
+            <div className="flex items-center justify-between">
+              <Label htmlFor="employee-SSN">Mã nhân viên</Label>
+              <div className="flex items-center gap-1">
+                <Checkbox
+                  id="enable-ssn"
+                  checked={SSNEnabled}
+                  onCheckedChange={(val) => onSSNEnableChange(Boolean(val))}
+                />
+                <Label htmlFor="enable-ssn" className="text-sm font-normal">
+                  Bật nhập
+                </Label>
+              </div>
+            </div>
+            <Input
+              id="employee-SSN"
+              value={employeeSSN}
+              onChange={(e) => onEmployeeSSNChange(e.target.value)}
+              disabled={!SSNEnabled}
+              placeholder="Nhập mã nhân viên"
             />
           </div>
 
