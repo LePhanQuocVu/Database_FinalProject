@@ -12,17 +12,6 @@ const config = {
     },
 };
 
-// export async function query<T = any>(sqlQuery: string): Promise<T[]> {
-//     try {
-//         const pool = await sql.connect(config);
-//         const result = await pool.request().query(sqlQuery);
-//         return result.recordset;
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         // await sql.close()
-//     }
-// }
 
 const pool = new sql.ConnectionPool(config);
 const poolConnect = pool.connect();
