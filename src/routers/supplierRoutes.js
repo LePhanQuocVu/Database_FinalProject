@@ -1,8 +1,10 @@
 const express = require('express');
-const  getAllSuppliers  = require('../controller/supplierController.js'); // đảm bảo export đúng từ controller
+const supplierController  = require('../controller/supplierController');
+
 
 var supplierRouter = express.Router();
 
-supplierRouter.get('/', getAllSuppliers);
+supplierRouter.get('/', supplierController.getAllSuppliers);
+supplierRouter.post('/', supplierController.addSupplier);
 
 module.exports = supplierRouter;

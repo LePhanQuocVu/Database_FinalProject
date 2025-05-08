@@ -1,6 +1,8 @@
 const express = require('express');
 
-const supplierRouter = require('./routers/supplierRoutes');
+const  supplierRouter = require('./routers/supplierRoutes');
+
+
 const billRouter = require('./routers/billRoutes');
 const cors = require('cors');
 const db = require('./config/dbConnect');
