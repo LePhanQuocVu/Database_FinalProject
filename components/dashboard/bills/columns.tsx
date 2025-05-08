@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import type { Bill } from "@/types"
-import { BillDetail } from "./bill-detail"
+ import { BillDetail } from "./bill-detail"
 
 export const billColumns: ColumnDef<Bill>[] = [
   {
@@ -37,12 +37,12 @@ export const billColumns: ColumnDef<Bill>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "Bill_ID",
     header: "Mã hóa đơn",
-    cell: ({ row }) => <div className="font-medium">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="font-medium">{row.getValue("Bill_ID")}</div>,
   },
   {
-    accessorKey: "date",
+    accessorKey: "Paid_date",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -51,51 +51,67 @@ export const billColumns: ColumnDef<Bill>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div>{row.getValue("date")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Paid_date")}</div>,
   },
   {
-    accessorKey: "customer",
+    accessorKey: "Card_ID",
     header: "Khách hàng",
-    cell: ({ row }) => <div>{row.getValue("customer")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Card_ID")}</div>,
   },
   {
-    accessorKey: "total",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Tổng tiền
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    accessorKey: "Balance_at_this_time",
+    header: "Số dư lúc đó",
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue("total"))
+      const amount = Number.parseFloat(row.getValue("Balance_at_this_time"))
       const formatted = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND",
       }).format(amount)
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right">{formatted}</div>
     },
   },
+  
   {
-    accessorKey: "status",
-    header: "Trạng thái",
+    accessorKey: "Sale_SSN",
+    header: "Mã nhân viên bán",
+    cell: ({ row }) => <div>{row.getValue("Sale_SSN")}</div>,
+  },
+  
+  {
+    accessorKey: "Comment",
+    header: "Ghi chú",
     cell: ({ row }) => {
-      const status = row.getValue("status") as string
-      return (
-        <div
-          className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-            status === "Đã thanh toán"
-              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-              : status === "Đã hủy"
-                ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
-          }`}
-        >
-          {status}
-        </div>
-      )
+      const comment = row.getValue("Comment") as string
+      return <div className="line-clamp-1 text-sm text-muted-foreground">{comment || "—"}</div>
     },
+  },
+  
+  {
+    accessorKey: "Rating",
+    header: "Đánh giá",
+    cell: ({ row }) => {
+      const rating = row.getValue("Rating")
+      return <div>{rating ? String(rating) : "—"}</div>
+    },
+  },
+  
+  {
+    accessorKey: "Total_price",
+    header: "Thành tiền",
+    cell: ({ row }) => {
+      const amount = Number.parseFloat(row.getValue("Total_price"))
+      const formatted = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(amount)
+      return <div className="text-right">{formatted}</div>
+    },
+  },
+  
+  {
+    accessorKey: "Store_ID",
+    header: "Chi nhánh",
+    cell: ({ row }) => <div>{row.getValue("Store_ID")}</div>,
   },
   {
     id: "actions",
@@ -115,7 +131,7 @@ export const billColumns: ColumnDef<Bill>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Hành động</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(bill.id)}>Sao chép mã</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(bill.Bill_ID.toString())}>Sao chép mã</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setShowDetail(true)}>Xem chi tiết</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setShowDetail(true)}>Chỉnh sửa</DropdownMenuItem>
