@@ -1,6 +1,8 @@
 const express = require('express');
 
 const supplierRouter = require('./routers/supplierRoutes');
+const billRouter = require('./routers/billRoutes');
+
 const db = require('./config/dbConnect');
 
 const app = express();
@@ -12,10 +14,11 @@ app.get('/', (req, res) => {
 });
 
 // Router
-db();
+db.getConnection();
 app.use(express.json());
 
 app.use('/api/suppliers', supplierRouter);
+app.use('/api/bills', billRouter);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
