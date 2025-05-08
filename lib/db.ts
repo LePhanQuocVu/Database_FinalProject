@@ -1,12 +1,12 @@
 // db.js
-import sql from 'mssql'
+import sql from "mssql"
 
 // connection configs
 const config = {
-    user: 'test',
-    password: '1000',
-    server: '.\sqlexpress',
-    database: 'DATABASE_NAME',
+    user: '',
+    password: '',
+    server: 'QUOCVU\\SQLEXPRESS07',
+    database: 'HighlandsCoffee',
     port: 1433,
     options: {
         instancename: 'SQLEXPRESS',
@@ -14,14 +14,20 @@ const config = {
         trustServerCertificate: true
     },
 }
+// Singleton pattern for connection pool
+let connectionPool: sql.ConnectionPool | null = null
 
-// export default async function ExcuteQuery(query, options) {
-//     try {
-//         let pool = await sql.connect(config);
-//         let products = await pool.request().query(query);
-//         return products.recordsets;
-//     }
-//     catch (error) {
-//         console.log(error);
-//     }
-// }
+export const getConnection = async (): Promise<sql.ConnectionPool> => {
+  if (connectionPool) {
+    return connectionPool
+  }
+
+  try {
+    connectionPool = await sql.connect(config)
+    console.log("Connected to SQL Server")
+    return connectionPool
+  } catch (err) {
+ console.error('Failed to connect to SQL Server:', err)
+    throw err
+  }
+}

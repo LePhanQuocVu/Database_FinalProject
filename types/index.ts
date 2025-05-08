@@ -95,3 +95,11 @@ export interface Store {
   phone: string
   manager: string
 }
+
+export interface Supplier {
+  Supplier_ID: number
+  Phone_number: string
+  Email: string
+  Name: string
+  Address: string
+}

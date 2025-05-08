@@ -1,4 +1,4 @@
-import { BarChart3, Coffee, FileText, Package, Users, ShoppingCart, CreditCard } from "lucide-react"
+import { BarChart3, Coffee, FileText, Package, Users, ShoppingCart, CreditCard, Building2 } from "lucide-react"
 
 export const dashboardConfig = {
   sidebarNav: [
@@ -37,5 +37,10 @@ export const dashboardConfig = {
       href: "/dashboard/membership",
       icon: <CreditCard className="h-4 w-4" />,
     },
+    {
+      title: "Nhà cung cấp",
+      href: "/dashboard/suppliers",
+      icon: <Building2 className="h-4 w-4" />, // dùng icon phù hợp, ví dụ Building2 từ lucide-react
+    }
   ],
 }

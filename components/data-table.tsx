@@ -46,8 +46,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       <div className="flex items-center py-4">
         <Input
           placeholder="Tìm kiếm..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
+          value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("Name")?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>
