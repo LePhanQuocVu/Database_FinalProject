@@ -26,6 +26,7 @@ async function insertBill(req, res) {
             return res.status(200).json({ state: 'success' });
         })
         .catch((err) => {
+            console.log("Error", err.message);
             return res.status(500).json(err.message);
         });
 }
