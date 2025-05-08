@@ -16,10 +16,11 @@ app.get('/', (req, res) => {
 });
 
 // Router
-db.getConnection();''
+db.getConnection();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/suppliers', supplierRouter);
 app.use('/api/bills', billRouter);
