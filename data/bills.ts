@@ -1,60 +1,60 @@
 import type { Bill } from "@/types"
 
+
 export const bills: Bill[] = [
   {
-    id: "HD-1234",
-    date: "2023-05-20",
-    customer: "Nguyễn Văn A",
-    total: "150000",
-    status: "Đã thanh toán",
-    items: [
-      { id: "DR_001", name: "Phin Sữa Đá (S)", quantity: 2, price: "29000" },
-      { id: "DR_0010", name: "Latte Đá", quantity: 1, price: "65000" },
-    ],
+    Bill_ID: 1234, // Sử dụng kiểu số cho Bill_ID
+    Paid_date: "2023-05-20", // Định dạng string kiểu "YYYY-MM-DD"
+    Card_ID: "CARD001234", // Giả định bạn có Card_ID dạng string
+    Balance_at_this_time: 0, // Giả sử số dư là 0 (hoặc có thể null tùy theo logic)
+    Sale_SSN: "SSN001", // Giả sử có mã SSN cho nhân viên bán hàng
+    Comment: "Thanh toán đầy đủ", // Có thể không có nếu không muốn
+    Rating: 5, // Điểm đánh giá có thể có hoặc không
+    Total_price: 150000, // Tổng giá trị hoá đơn
+    Store_ID: 1, // Giả sử mã cửa hàng là 1
   },
   {
-    id: "HD-1235",
-    date: "2023-05-20",
-    customer: "Trần Thị B",
-    total: "85000",
-    status: "Đã thanh toán",
-    items: [
-      { id: "DR_0012", name: "Cappuccino", quantity: 1, price: "65000" },
-      { id: "DR_004", name: "Phin Đen Đá (S)", quantity: 1, price: "29000" },
-    ],
+    Bill_ID: 1235,
+    Paid_date: "2023-05-20",
+    Card_ID: "CARD001235",
+    Balance_at_this_time: 0,
+    Sale_SSN: "SSN002",
+    Comment: "Thanh toán đầy đủ",
+    Rating: 4,
+    Total_price: 85000,
+    Store_ID: 1,
   },
   {
-    id: "HD-1236",
-    date: "2023-05-19",
-    customer: "Lê Văn C",
-    total: "220000",
-    status: "Đã thanh toán",
-    items: [
-      { id: "DR_0011", name: "Caramel Macchiato", quantity: 2, price: "69000" },
-      { id: "DR_003", name: "Phin Sữa Đá (L)", quantity: 1, price: "45000" },
-      { id: "DR_007", name: "Bạc Xỉu Đá (S)", quantity: 1, price: "29000" },
-    ],
+    Bill_ID: 1236,
+    Paid_date: "2023-05-19",
+    Card_ID: "CARD001236",
+    Balance_at_this_time: 0,
+    Sale_SSN: "SSN003",
+    Comment: "Thanh toán đầy đủ",
+    Rating: 5,
+    Total_price: 220000,
+    Store_ID: 1,
   },
   {
-    id: "HD-1237",
-    date: "2023-05-19",
-    customer: "Phạm Thị D",
-    total: "175000",
-    status: "Đã thanh toán",
-    items: [
-      { id: "DR_0010", name: "Latte Đá", quantity: 2, price: "65000" },
-      { id: "DR_005", name: "Phin Đen Đá (M)", quantity: 1, price: "35000" },
-    ],
+    Bill_ID: 1237,
+    Paid_date: "2023-05-19",
+    Card_ID: "CARD001237",
+    Balance_at_this_time: 0,
+    Sale_SSN: "SSN004",
+    Comment: "Thanh toán đầy đủ",
+    Rating: 4,
+    Total_price: 175000,
+    Store_ID: 1,
   },
   {
-    id: "HD-1238",
-    date: "2023-05-18",
-    customer: "Hoàng Văn E",
-    total: "95000",
-    status: "Chờ thanh toán",
-    items: [
-      { id: "DR_008", name: "Bạc Xỉu Đá (M)", quantity: 1, price: "39000" },
-      { id: "DR_004", name: "Phin Đen Đá (S)", quantity: 2, price: "29000" },
-    ],
+    Bill_ID: 1238,
+    Paid_date: "2023-05-18",
+    Card_ID: "CARD001238",
+    Balance_at_this_time: 0,
+    Sale_SSN: "SSN005",
+    Comment: "Chưa thanh toán",
+    Rating: 0, 
+    Total_price: 95000,
+    Store_ID: 1,
   },
 ]

@@ -7,6 +7,15 @@ export interface Product {
   image?: string
 }
 
+export interface Discount {
+  Dis_ID: number
+  Product_ID: string
+  Name?: string
+  Discount_price?: number
+  Start_date?: string  
+  End_date?: string    
+}
+
 export interface BillItem {
   id: string
   name: string
@@ -15,17 +24,18 @@ export interface BillItem {
 }
 
 export interface Bill {
-  id: string
-  date: string
-  customer: string
-  total: string
-  status: string
-  items: BillItem[]
-  customerPhone?: string
-  membershipId?: string
-  pointsEarned?: number
-  pointsUsed?: number
+  Bill_ID: number;                      // INT
+  Paid_date: string;                   // DATE (dùng ISO string dạng "YYYY-MM-DD")
+  Card_ID: string;                     // CHAR(10)
+  Balance_at_this_time?: number;      // DECIMAL(10, 3), optional nếu cho phép null
+  Sale_SSN: string;                    // CHAR(12)
+  Comment?: string;                    // VARCHAR(MAX), optional
+  Rating?: number;                     // INT, optional
+  Total_price?: number;                // DECIMAL(10, 3), optional
+  Store_ID: number;                    // INT
 }
+
+
 
 export interface Employee {
   ssn: string
