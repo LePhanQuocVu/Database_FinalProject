@@ -89,8 +89,7 @@ export interface MembershipInfo {
 }
 
 export interface Store {
-  id: string
-  name: string
+  id: number
   address: string
   phone: string
   manager: string

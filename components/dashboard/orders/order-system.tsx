@@ -9,11 +9,13 @@ import { PaymentReceipt } from "./payment-receipt"
 import { products } from "@/data/products"
 import { bills } from "@/data/bills"
 import { stores } from "@/data/stores"
+// import { Store } from "@/types"
 import { getMembershipByPhone, getDiscountByRank, updateMembershipPoints } from "@/data/membership-cards"
 import { Card } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle, CheckCircle2 } from "lucide-react"
 import type { Product, BillItem, Bill, MembershipInfo } from "@/types"
+import { da } from "date-fns/locale"
 
 export interface OrderItem {
   product: Product
@@ -36,6 +38,7 @@ export function OrderSystem() {
   ])
   const [customerName, setCustomerName] = useState("")
   const [customerPhone, setCustomerPhone] = useState("")
+  
   const [paymentMethod, setPaymentMethod] = useState("cash")
   const [notification, setNotification] = useState<{
     type: "success" | "error" | null
@@ -45,7 +48,23 @@ export function OrderSystem() {
   const [pointsToUse, setPointsToUse] = useState(0)
   const [showReceipt, setShowReceipt] = useState(false)
   const [receiptId, setReceiptId] = useState("")
-  const [selectedStore, setSelectedStore] = useState(stores[0])
+
+  const [selectedStore, setSelectedStore] = useState(stores[0]);
+ 
+  const [employeeSSN, setEmployeeSSN] = useState(() => {
+    return localStorage.getItem("employeeSSN") || ""
+  })
+
+  const [SSNEnabled, setSSNEnabled] = useState(() => {
+    const value = localStorage.getItem("SSNEnabled")
+    return value === null ? true : value === "true"
+  })
+
+  // Lưu mỗi khi employeeSSN hoặc enabled thay đổi
+  useEffect(() => {
+    localStorage.setItem("employeeSSN", employeeSSN)
+    localStorage.setItem("SSNEnabled", SSNEnabled.toString())
+  }, [employeeSSN, SSNEnabled])
 
   // Kiểm tra thẻ thành viên khi số điện thoại thay đổi
   useEffect(() => {
@@ -178,7 +197,7 @@ export function OrderSystem() {
     })
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (orderItems.length === 0) {
       setNotification({
         type: "error",
@@ -231,12 +250,36 @@ export function OrderSystem() {
       updateMembershipPoints(membershipInfo.id, newBillId, finalTotal, pointsToUse)
     }
 
-    // Trong thực tế, bạn sẽ gửi dữ liệu này đến server
-    // Ở đây chúng ta giả lập bằng cách thêm vào mảng bills
-    bills.unshift(newBill)
+    // Bạn sẽ gửi dữ liệu này đến server ở đây 
+    // tao chuoi list_Of_Product
+    var list_Of_Product = orderItems
+      .map((item) => `${item.product.id}:${item.quantity}`)
+      .join(" ");
+    
+    list_Of_Product = list_Of_Product.trimEnd();
+    
+    const res = await fetch('http://localhost:3000/api/bills/insertBill', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "paidDate": new Date().toISOString().split("T")[0],
+        "customerPhone": customerPhone.toString(),
+        "saleSSN": employeeSSN,
+        "totalPrice": finalTotal.toString(),
+        "storeID": selectedStore.id,
+        "listOfProduct": list_Of_Product,
+      }),
+    })
 
-    // Hiển thị hóa đơn
-    setShowReceipt(true)
+    if (res.ok) {
+      setShowReceipt(true);
+    }
+    else {
+      const error = await res.json(); 
+      
+    }
   }
 
   const handleCloseReceipt = () => {
@@ -289,8 +332,12 @@ export function OrderSystem() {
             total={calculateTotal()}
             customerName={customerName}
             customerPhone={customerPhone}
+            employeeSSN={employeeSSN}
+            SSNEnabled={SSNEnabled}
             onCustomerNameChange={setCustomerName}
             onCustomerPhoneChange={setCustomerPhone}
+            onEmployeeSSNChange={setEmployeeSSN}
+            onSSNEnableChange={setSSNEnabled}
             paymentMethod={paymentMethod}
             onPaymentMethodChange={setPaymentMethod}
             onCheckout={handleCheckout}
@@ -317,7 +364,7 @@ export function OrderSystem() {
         paymentMethod={paymentMethod}
         receiptId={receiptId}
         membershipInfo={membershipInfo}
-        storeName={selectedStore.name}
+        // storeName={selectedStore.name}
       />
     </div>
   )
