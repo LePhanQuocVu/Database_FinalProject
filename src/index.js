@@ -2,7 +2,7 @@ const express = require('express');
 
 const supplierRouter = require('./routers/supplierRoutes');
 const billRouter = require('./routers/billRoutes');
-
+const cors = require('cors');
 const db = require('./config/dbConnect');
 
 const app = express();
@@ -14,7 +14,9 @@ app.get('/', (req, res) => {
 });
 
 // Router
-db.getConnection();
+db.getConnection();''
+
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/suppliers', supplierRouter);
