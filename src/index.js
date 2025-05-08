@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 // Router
-db();
+db.getConnection();
 app.use(express.json());
 
 app.use('/api/suppliers', supplierRouter);

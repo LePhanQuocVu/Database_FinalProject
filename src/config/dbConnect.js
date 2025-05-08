@@ -12,7 +12,6 @@ const config = {
     },
 };
 
-
 const pool = new sql.ConnectionPool(config);
 const poolConnect = pool.connect();
 
@@ -27,4 +26,4 @@ async function getConnection() {
     }
 }
 
-module.exports = getConnection;
+module.exports = { poolConnect, getConnection };
